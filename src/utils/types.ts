@@ -11,11 +11,11 @@ export type dataPostLoginType = {
   password: string;
   payload: any;
 };
-export type authenticationType = {
+export interface authenticationType {
   accessToken: AccessToken;
   refreshToken: RefreshToken;
   loginInfo: object | null;
   rememberMe: boolean;
   loading: boolean;
   isLoggedIn: boolean;
-};
+}

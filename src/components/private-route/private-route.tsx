@@ -5,7 +5,6 @@ import { useAuthenticationStore } from "../../hooks/authentication";
 
 type Props = {
   isAuthRoute?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   layout?: any;
   isPrivate?: boolean;
 };
@@ -14,10 +13,9 @@ export const PrivateRoute = memo(
     const { authenticationState } = useAuthenticationStore();
     if (isAuthRoute && authenticationState.isLoggedIn) {
       // dang o route auth va da login
-      return <Navigate to={AppRoutes.home} replace />;
+      return <Navigate to={AppRoutes.dashboard} replace />;
     }
     if (isPrivate && !authenticationState.isLoggedIn) {
-      //dang o route home va chua login
       return <Navigate to={AppRoutes.auth.login} replace />;
     }
     return (

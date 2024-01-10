@@ -1,24 +1,26 @@
 import axios, { AxiosResponse } from "axios";
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.BASE_URL,
+  baseURL: "http://localhost:3000/v1",
   headers: { "Content-Type": "appication/json" },
+  timeout: 20000,
 });
 
-// axiosClient.interceptors.request.use((config)=>{
-//     const token = store.getState()?.authentication?.accessToken?.token;
+// axiosClient.interceptors.request.use((config) => {
+//   console.log("config", config);
+//   //   const token = store.getState()?.authentication?.accessToken?.token;
 
-//   if (token) {
-//     config.headers['Authorization'] = `Bearer ${token}`;
-//   }
-// })
+//   // if (token) {
+//   //   config.headers['Authorization'] = `Bearer ${token}`;
+//   // }
+// });
 
 axiosClient.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response?.status === 401) {
       console.log("authorization 401");
     }
-    return response.data;
+    return Promise.resolve(response.data);
   },
   (error) => {
     throw error?.response?.data;

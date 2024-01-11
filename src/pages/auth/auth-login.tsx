@@ -1,33 +1,31 @@
 import { memo, useCallback, useMemo } from "react";
-// import { useAuthenticationStore } from "../../../hooks/authentication";
 
-import { Button, Form, Input, Checkbox, Col } from "antd";
-import { useAuthenticationStore } from "../../hooks/authentication";
-import { useNavigate } from "react-router-dom";
-import PopupNotification from "../../helpers/popup-notification";
+import { Button, Form, Input, Checkbox, Col, Row } from "antd";
+import { useAuthenticationStore } from "@hooks/index";
+import { RegexValidator } from "@helpers/regex";
 import CMSlogo from "../../assets/CMSlogo.png";
 import { LockOutlined, UserOutlined, LoginOutlined } from "@ant-design/icons";
+import LogoFaceBook from "@assets/facebook.svg";
+import LogoGoogle from "@assets/google.svg";
+import LogoLinkdein from "@assets/linkedin.svg";
+
 type LoginType = {
   username?: string;
   password?: string;
   remember?: boolean;
 };
 export const AuthLogin = memo(() => {
-  const navigate = useNavigate();
   const { dispatchRemember, authenticationState, dispatchLogin } =
     useAuthenticationStore();
   const [form] = Form.useForm();
-
+  const rememberMe = useMemo(
+    () => authenticationState.rememberMe,
+    [authenticationState.rememberMe]
+  );
   const onFinish = useCallback(
     (values: LoginType) => {
-      console.log("Success:", values);
-      // dispatchRemember();
-      dispatchLogin({ username: "2412", password: 123 });
-      // PopupNotification(
-      //   "success",
-      //   "message",
-      //   "This is decription of notification"
-      // );
+      // console.log("Success:", values);
+      dispatchLogin({ username: "admin", password: "admin123" });
     },
     [dispatchLogin]
   );
@@ -48,7 +46,11 @@ export const AuthLogin = memo(() => {
             // labelCol={{ span: 8 }}
             // wrapperCol={{ span: 16 }}
 
-            initialValues={{ remember: authenticationState.rememberMe }}
+            initialValues={{
+              remember: rememberMe,
+              username: "anhnguyendin263@gmail.com",
+              password: "Anhdinh@123",
+            }}
             onFinish={onFinish}
             // onFinishFailed={onFinishFailed}
             autoComplete="off"
@@ -58,6 +60,10 @@ export const AuthLogin = memo(() => {
               name="username"
               rules={[
                 { required: true, message: "Please input your username!" },
+                {
+                  pattern: RegexValidator.email,
+                  message: "Please input type of email",
+                },
               ]}
               className="mb-10"
             >
@@ -70,13 +76,11 @@ export const AuthLogin = memo(() => {
               name="password"
               rules={[
                 { required: true, message: "Please input your password!" },
-                // {
-                //   validator: async (_, value) => {
-                //     if (!value || value == "ok") {
-                //       // return Promise.reject("Nhap khau bi ngao da");
-                //     }
-                //   },
-                // },
+                {
+                  pattern: RegexValidator.password,
+                  message:
+                    "Please input password least 1 special characters,1 number and 1 uptocase characters",
+                },
               ]}
             >
               <Input.Password
@@ -87,10 +91,7 @@ export const AuthLogin = memo(() => {
             </Form.Item>
 
             <Form.Item<LoginType> name="remember">
-              <Checkbox
-                checked={authenticationState.rememberMe}
-                onChange={dispatchRemember}
-              >
+              <Checkbox checked={rememberMe} onChange={dispatchRemember}>
                 Remember me
               </Checkbox>
             </Form.Item>
@@ -109,6 +110,38 @@ export const AuthLogin = memo(() => {
               </Button>
             </Form.Item>
           </Form>
+          <p className="text-center font-bold select-none">Login with</p>
+          <Row
+            className="mt-8"
+            justify={"center"}
+            // align={"center"}
+            gutter={[30, 50]}
+          >
+            <Col className="cursor-pointer">
+              <img
+                src={LogoFaceBook}
+                alt="facebooklogo"
+                width={30}
+                height={"auto"}
+              />
+            </Col>
+            <Col className="cursor-pointer">
+              <img
+                src={LogoGoogle}
+                alt="logogoogle"
+                width={30}
+                height={"auto"}
+              />
+            </Col>
+            <Col className="cursor-pointer">
+              <img
+                src={LogoLinkdein}
+                alt="logolinked"
+                width={30}
+                height={"auto"}
+              />
+            </Col>
+          </Row>
         </div>
       </Col>
     </div>

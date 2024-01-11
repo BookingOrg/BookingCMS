@@ -6,7 +6,8 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
@@ -14,12 +15,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <ConfigProvider
           theme={{
             token: {
-              // colorPrimary: "#ffffff",
-              // colorBgContainer: "#000000",
+              colorBgLayout: "#f5f7f8",
             },
           }}
         >
           <App />
+          <ToastContainer />
         </ConfigProvider>
       </PersistGate>
     </Provider>

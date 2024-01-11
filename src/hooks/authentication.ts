@@ -7,15 +7,15 @@ import {
   changeInforTest,
 } from "../store/slice/authentication";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { dataPostLoginType } from "@utils/types";
 
 const useAuthenticationStore = () => {
   const dispatch = useAppDispatch();
   const authenticationState = useAppSelector((state) => state.authentication);
 
   const dispatchLogin = useCallback(
-    (payload: any) => {
+    (payload: dataPostLoginType) => {
       dispatch(loginRequest(payload));
-
       return true;
     },
     [dispatch]
@@ -23,15 +23,19 @@ const useAuthenticationStore = () => {
 
   const dispatchLogOut = useCallback(() => {
     dispatch(logOutCMS());
+    return true;
   }, [dispatch]);
 
   const dispatchRemember = useCallback(() => {
     dispatch(changeRememberMe());
+    return true;
   }, [dispatch]);
 
   const dispatchTest = useCallback(() => {
     dispatch(changeInforTest());
+    return true;
   }, [dispatch]);
+
   return {
     authenticationState,
     dispatchLogin,

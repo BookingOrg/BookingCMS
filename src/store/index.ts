@@ -18,9 +18,10 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [PERSIST],
-      },
+      serializableCheck: false,
+      // serializableCheck: {
+      //   ignoredActions: [PERSIST],
+      // },
     })
       .prepend
       // untyped

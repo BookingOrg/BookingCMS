@@ -9,7 +9,7 @@ type RefreshToken = {
 export type dataPostLoginType = {
   username: string;
   password: string;
-  payload: any;
+  payload?: any;
 };
 export interface authenticationType {
   accessToken: AccessToken;

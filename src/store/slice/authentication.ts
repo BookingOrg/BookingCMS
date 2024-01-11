@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { authenticationType } from "../../utils/types";
+import { authenticationType, dataPostLoginType } from "@utils/types";
 import { RootState } from "..";
+import PopupNotification from "@helpers/popup-notification";
 
 const initialState: authenticationType = {
   accessToken: {
@@ -21,16 +22,17 @@ export const authentication = createSlice({
   initialState,
   reducers: {
     initCMS: () => {},
-    loginRequest: () => {},
+    loginRequest: (state, action: PayloadAction<dataPostLoginType>) => {},
     loginSuccess: (state, action: PayloadAction<object>) => {
-      console.log(state, action);
+      // console.log(state, action);
+      PopupNotification({ type: "success", message: "Login success" });
       state.isLoggedIn = true;
     },
-    loginFailt: (state, action: PayloadAction<object>) => {
-      console.log(state, action);
+    loginFailt: (_, action: PayloadAction<any>) => {
+      const { message } = action.payload;
+      PopupNotification({ type: "error", message: message });
     },
     logOutCMS: (state) => {
-      console.log("slice");
       state.isLoggedIn = false;
     },
     changeInforTest: (state) => {

@@ -8,6 +8,7 @@ import UserGroup from "@assets/usergroup.svg";
 import Catalog from "@assets/catalog.svg";
 import Dish from "@assets/dish.svg";
 import Cash from "@assets/cash.svg";
+import Dashboard from "@assets/dashboard.svg";
 import { useNavigate } from "react-router-dom";
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -28,6 +29,11 @@ function getItem(
 }
 
 const items: MenuProps["items"] = [
+  getItem(
+    "DashBoard",
+    AppRoutes.dashboard,
+    <img src={Dashboard} width={20} height={"auto"} />
+  ),
   getItem(
     "Restaurent",
     "1",

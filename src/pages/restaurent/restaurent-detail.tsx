@@ -1,7 +1,5 @@
 import { memo } from "react";
 
-// import { useAuthenticationStore } from "../../../hooks/authentication";
-
 export const RestaurentDetail = memo(() => {
   return (
     <>

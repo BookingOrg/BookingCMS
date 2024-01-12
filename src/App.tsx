@@ -1,5 +1,5 @@
 import { RouterProvider } from "react-router-dom";
-import { routerCMS } from "./route/index.tsx";
+import { routerCMS } from "@route/index.tsx";
 
 function App() {
   const route = routerCMS();

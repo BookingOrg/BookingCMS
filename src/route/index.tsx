@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import { AuthLogin } from "../pages/auth/auth-login";
-import { Home } from "../pages";
-import { PrivateRoute } from "../components";
-import { Error } from "../pages";
-import { Restaurent, RestaurentDetail } from "../pages";
-import { MainLayout } from "../layout";
-import { WrapLayout } from "../layout/wrap-layout";
+import { AuthLogin } from "@pages/auth/auth-login";
+import { Home } from "@pages/home";
+import { PrivateRoute } from "@components/index";
+import { Error } from "@pages/error";
+import { Restaurent, RestaurentDetail } from "@pages/restaurent";
+import { MainLayout } from "@layout/index";
+import { WrapAuth } from "@layout/wrap-auth";
 // import App from "../App";
 import { AppRoutes } from "./AppRoutes";
 export const routerCMS = () => {
@@ -14,36 +14,36 @@ export const routerCMS = () => {
       {
         path: AppRoutes.auth.index,
         element: (
-          <PrivateRoute isAuthRoute isPrivate={false} layout={WrapLayout} />
+          <PrivateRoute isAuthRoute isPrivate={false} layout={WrapAuth} />
         ),
-        errorElement: <Error />,
+        errorElement: <Error name={AppRoutes.auth.index} />,
         children: [
           {
             path: AppRoutes.auth.login,
             element: <AuthLogin />,
-            errorElement: <Error />,
+            errorElement: <Error name={AppRoutes.auth.login} />,
           },
         ],
       },
       {
         path: AppRoutes.home,
         element: <PrivateRoute isPrivate layout={MainLayout} />,
-        errorElement: <Error />,
+        errorElement: <Error name={AppRoutes.home} />,
         children: [
           {
             path: AppRoutes.dashboard,
             element: <Home />,
-            errorElement: <Error />,
+            errorElement: <Error name={AppRoutes.dashboard} />,
           },
           {
             path: AppRoutes.restaurent.index,
             element: <Restaurent />,
-            errorElement: <Error />,
+            errorElement: <Error name={AppRoutes.restaurent.index} />,
           },
           {
             path: AppRoutes.restaurent.detail,
             element: <RestaurentDetail />,
-            errorElement: <Error />,
+            errorElement: <Error name={AppRoutes.restaurent.detail} />,
           },
         ],
       },
